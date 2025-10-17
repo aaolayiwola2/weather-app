@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* DM Sans Variable Font */
+@font-face {
+    font-family: 'DMSans';
+    src:url('/assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype')
+        url('/assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('woff')
+        url('/assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('woff2');
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* DM Sans Variable Italic Font */
+@font-face {
+    font-family: 'DMSansItalic';
+    src: url('/assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('woff'),
+    url('/assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('woff2'),
+    url('/assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Bricolage Grotesque Variable Font */
+@font-face {
+    font-family: 'BricolageGrotesque';
+    src: url('/assets/fonts/Bricolage_Grotesque/BricolageGrotesque-VariableFont_opsz,wdth,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-stretch: 75% 125%;
+    font-style: normal;
+    font-display: swap;
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="./output.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Weather app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+
+<body class="flex flex-col bg-Blue700">
+  <nav>
+    <div class="container max-w-6xl flex justify-between items-center mx-auto my-10 px-4 md:px-8 py-0">
+      <img class="text-xs" src="/assets/images/logo.svg" alt="logo">
+      <div
+        class="dropdown-units flex text-Neutral0 bg-Neutral800 justify-evenly items-center rounded-md p-2 hover:cursor-pointer">
+        <img class="w-4" src="/assets/images/icon-units.svg" alt="">
+        <span class="ml-3">Units</span>
+        <img class="w-4 ml-3" src="/assets/images/icon-dropdown.svg" alt="">
+      </div>
+    </div>
+  </nav>
+  <header>
+    <div class="hero-text max-w-3xl mx-auto my-10 px-30 py-0 text-center">
+      <h1 class="font-BricolageGrotesque text-Neutral0 text-5xl font-bold">How's the sky looking today?</h1>
+    </div>
+
+    <div class="search max-w-xl gap-4 mx-auto my-10 px-30 py-0 text-center flex">
+      <div
+        class="search-bar rounded-md basis-0 grow-[3] flex bg-Neutral800 font-DMSans text-Neutral0 p-2 hover:cursor-pointer">
+        <img class="w-4 mx-3" src="/assets/images/icon-search.svg" alt="search-icon"> Search for a place...</div>
+      <div
+        class="search-button rounded-md bg-Blue500 hover:cursor-pointer hover:bg-Blue600 basis-0 grow-[1] text-Neutral0 p-2 text-center">
+        Search</div>
+    </div>
+  </header>
+
+  <div class="container flex max-w-6xl justify-between items-center mx-auto my-10 px-4 py-0">
+    <main class="basis-0 grow-[2] flex flex-col">
+      <section class="flex flex-col justify-center">
+        <section
+          class="weather-card flex justify-between items-center bg-Neutral300 bg-[url('/assets/images/bg-today-large.svg')] bg-cover bg-no-repeat text-Neutral0 py-20 px-4 basis-[auto] grow-[4]">
+          <div class="info font-DMSans">
+            <div class="city">
+              Berlin, Germany
+            </div>
+            <div class="date">
+              Tuesday, Aug 5, 2025
+            </div>
+          </div>
+          <div class="degree flex flex-row-reverse">
+            <span class="font-DMSansItalic text-7xl">20<sup>o</sup></span>
+            <img class="max-w-20 mr-8" src="/assets/images/icon-sunny.webp" alt="">
+          </div>
+        </section>
+
+        <div class="weather-info bg-Neutral300 basis-auto flex-1 flex justify-between items-center">
+          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12">
+            <div class="text-xs font-[100] mb-2">
+              Feels Like
+            </div>
+            <div class="text-xl font-DMSans">
+              18<sup>o</sup>
+            </div>
+          </div>
+          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12">
+            <div class="text-xs font-[100] mb-2">
+              Humidity
+            </div>
+            <div class="text-xl font-DMSans">
+              46%
+            </div>
+          </div>
+          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12">
+            <div class="text-xs font-[100] mb-2">
+              Wind
+            </div>
+            <div class="text-xl font-DMSans">
+              14km/h
+            </div>
+          </div>
+          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12">
+            <div class="text-xs font-[100] mb-2">
+              Precipitation
+            </div>
+            <div class="text-xl font-DMSans">
+              0mm
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="daily-forecast basis-0 grow-[2] flex"></section>
+    </main>
+
+    <aside class="hourly-forecast basis-0 grow-[1] flex">
+
+    </aside>
+  </div>
+
+</body>
+
+</html>
