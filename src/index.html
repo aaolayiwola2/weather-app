@@ -7,20 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
 
   <title>Frontend Mentor | Weather app</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution {
-      font-size: 11px;
-    }
-
-    .attribution a {
-      color: hsl(228, 45%, 44%);
-    }
-  </style>
 </head>
 
 <body class="flex flex-col bg-Blue700">
@@ -50,12 +39,13 @@
     </div>
   </header>
 
-  <div class="container flex max-w-6xl justify-between items-center mx-auto my-10 px-4 py-0">
-    <main class="basis-0 grow-[2] flex flex-col">
-      <section class="flex flex-col justify-center">
+  <div class="container dashboard flex flex-1 justify-between items-stretch my-10 px-20 py-0 gap-10">
+    <main class="current grow-[2] flex flex-col gap-4 self-start">
+      <section class="current-info flex flex-col gap-5 justify-center">
         <section
-          class="weather-card flex justify-between items-center bg-Neutral300 bg-[url('/assets/images/bg-today-large.svg')] bg-cover bg-no-repeat text-Neutral0 py-20 px-4 basis-[auto] grow-[4]">
-          <div class="info font-DMSans">
+          class="current-weather flex justify-between items-center bg-[url('/assets/images/bg-today-large.svg')] bg-Neutral300 bg-cover bg-no-repeat bg-center text-Neutral0 py-20 px-4 rounded-md">
+
+          <div class="info font-DMSans relative left-0">
             <div class="city">
               Berlin, Germany
             </div>
@@ -63,22 +53,22 @@
               Tuesday, Aug 5, 2025
             </div>
           </div>
-          <div class="degree flex flex-row-reverse">
-            <span class="font-DMSansItalic text-7xl">20<sup>o</sup></span>
+          <div class="degree flex flex-row-reverse relative">
+            <span class="font-DMSansItalic font-bold text-7xl">20<sup>o</sup></span>
             <img class="max-w-20 mr-8" src="/assets/images/icon-sunny.webp" alt="">
           </div>
         </section>
 
-        <div class="weather-info bg-Neutral300 basis-auto flex-1 flex justify-between items-center">
-          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12">
+        <div class="current-info flex-1 flex gap-4">
+          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12 flex-1">
             <div class="text-xs font-[100] mb-2">
-              Feels Like
+              Feels like
             </div>
             <div class="text-xl font-DMSans">
               18<sup>o</sup>
             </div>
           </div>
-          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12">
+          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12 flex-1">
             <div class="text-xs font-[100] mb-2">
               Humidity
             </div>
@@ -86,7 +76,7 @@
               46%
             </div>
           </div>
-          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12">
+          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12 flex-1">
             <div class="text-xs font-[100] mb-2">
               Wind
             </div>
@@ -94,7 +84,7 @@
               14km/h
             </div>
           </div>
-          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12">
+          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12 flex-1">
             <div class="text-xs font-[100] mb-2">
               Precipitation
             </div>
@@ -106,11 +96,11 @@
         </div>
       </section>
 
-      <section class="daily-forecast basis-0 grow-[2] flex"></section>
+      <section class="daily-forecast basis-0 grow-[2] flex bg-Neutral800 text-Neutral0 font-DMSans rounded-md">Daily Forecast</section>
     </main>
 
-    <aside class="hourly-forecast basis-0 grow-[1] flex">
-
+    <aside class="hourly-forecast grow-[2] flex bg-Neutral800 text-Neutral0 font-DMSans rounded-md">
+Hourly Forecast
     </aside>
   </div>
 
