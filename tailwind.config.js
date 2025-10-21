@@ -7,8 +7,8 @@ module.exports = {
         Neutral900: 'hsl(243, 96%, 9%)',
         Neutral800: 'hsl(243, 27%, 20%)',
         Neutral700: 'hsl(243, 23%, 24%)',
-        Neutral300: 'hsl(240, 6%, 70%)',
         Neutral600: 'hsl(243, 23%, 30%)',
+        Neutral300: 'hsl(240, 6%, 70%)',
         Neutral200: 'hsl(250, 6%, 84%)',
         Neutral0:'hsl(0, 0%, 100%)',
         Orange500: 'hsl(28, 100%, 52%)',
@@ -21,14 +21,13 @@ module.exports = {
         DMSansItalic: ['DMSansItalic', 'sans-serif'],
         BricolageGrotesque: ['BricolageGrotesque', 'sans-serif'],
       },
-
     backgroundImage: {
         todaylarge: "url('/assets/images/bg-today-large.svg')",
         todaysmall: "url('/assets/images/bg-today-small.svg')",
-      }
+      },
     },
   },
   plugins: [
-    require('@tailwindcss/forms'),
+    // require('@tailwindcss/forms'),
   ],
 }

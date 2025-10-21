@@ -13,94 +13,199 @@
 </head>
 
 <body class="flex flex-col bg-Blue700">
+  <!-- Navbar -->
   <nav>
     <div class="container max-w-6xl flex justify-between items-center mx-auto my-10 px-4 md:px-8 py-0">
       <img class="text-xs" src="/assets/images/logo.svg" alt="logo">
       <div
-        class="dropdown-units flex text-Neutral0 bg-Neutral800 justify-evenly items-center rounded-md p-2 hover:cursor-pointer">
+        class="dropdown-units flex text-Neutral0 bg-Neutral800 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer">
         <img class="w-4" src="/assets/images/icon-units.svg" alt="">
         <span class="ml-3">Units</span>
         <img class="w-4 ml-3" src="/assets/images/icon-dropdown.svg" alt="">
       </div>
     </div>
   </nav>
+
+  <!-- Header -->
   <header>
     <div class="hero-text max-w-3xl mx-auto my-10 px-30 py-0 text-center">
+      <!-- Hero text -->
       <h1 class="font-BricolageGrotesque text-Neutral0 text-5xl font-bold">How's the sky looking today?</h1>
     </div>
-
-    <div class="search max-w-xl gap-4 mx-auto my-10 px-30 py-0 text-center flex">
-      <div
-        class="search-bar rounded-md basis-0 grow-[3] flex bg-Neutral800 font-DMSans text-Neutral0 p-2 hover:cursor-pointer">
-        <img class="w-4 mx-3" src="/assets/images/icon-search.svg" alt="search-icon"> Search for a place...</div>
-      <div
-        class="search-button rounded-md bg-Blue500 hover:cursor-pointer hover:bg-Blue600 basis-0 grow-[1] text-Neutral0 p-2 text-center">
-        Search</div>
-    </div>
+    <!-- Container for search bar and button -->
   </header>
 
-  <div class="container dashboard flex flex-1 justify-between items-stretch my-10 px-20 py-0 gap-10">
-    <main class="current grow-[2] flex flex-col gap-4 self-start">
+<!-- Main section -->
+  <div class="container dashboard flex items-stretch gap-6 my-10 px-10 py-0">
+    <!-- right hand section - searhbar, weather-info and daily forecast -->
+    <main class="current-weather flex flex-col gap-8 self-start">
+      <!-- search -->
+      <div class="search gap-4 text-center flex">
+      <!-- Flex Container for search bar -->
+        <div class="search-container relative flex items-center gap-4 basis-0 grow-[4]">
+          <img src="/assets/images/icon-search.svg" alt="search icon" class="absolute pointer-events-none ml-2">
+          <input type="search" placeholder="Search for a place..." class="pr-3 pl-10 py-2 h-full w-full appearance-none rounded-xl bg-Neutral800 font-DMSans text-Neutral0 placeholder-opacity-75 placeholder-Neutral0  hover:cursor-pointer focus:border-none focus:border-2 focus:border-Neutral0">
+        </div>
+        
+      </div>
       <section class="current-info flex flex-col gap-5 justify-center">
+        <!-- weather card -->
         <section
-          class="current-weather flex justify-between items-center bg-[url('/assets/images/bg-today-large.svg')] bg-Neutral300 bg-cover bg-no-repeat bg-center text-Neutral0 py-20 px-4 rounded-md">
+          class="current-weather flex justify-between items-center bg-[url('/assets/images/bg-today-large.svg')] bg-cover bg-no-repeat bg-center text-Neutral0 py-20 px-5 rounded-xl shadow-xl">
 
-          <div class="info font-DMSans relative left-0">
-            <div class="city">
+          <div class="info font-DMSans">
+            <div class="city font-bold text-2xl">
               Berlin, Germany
             </div>
-            <div class="date">
+            <div class="date text-Neutral200 font-bold">
               Tuesday, Aug 5, 2025
             </div>
           </div>
+
           <div class="degree flex flex-row-reverse relative">
             <span class="font-DMSansItalic font-bold text-7xl">20<sup>o</sup></span>
             <img class="max-w-20 mr-8" src="/assets/images/icon-sunny.webp" alt="">
           </div>
         </section>
-
-        <div class="current-info flex-1 flex gap-4">
-          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12 flex-1">
-            <div class="text-xs font-[100] mb-2">
+<!-- weather info -->
+        <div class="current-info flex-1 flex justify-between items-center gap-2">
+          <div class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600">
+            <div class="text-sm text-Neutral200 font-[700] mb-2">
               Feels like
             </div>
-            <div class="text-xl font-DMSans">
+            <div class="text-2xl font-DMSans">
               18<sup>o</sup>
             </div>
           </div>
-          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12 flex-1">
-            <div class="text-xs font-[100] mb-2">
+          <div class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600">
+            <div class="text-sm text-Neutral200 font-[700] mb-2">
               Humidity
             </div>
-            <div class="text-xl font-DMSans">
+            <div class="text-2xl font-DMSans">
               46%
             </div>
           </div>
-          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12 flex-1">
-            <div class="text-xs font-[100] mb-2">
+          <div class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600">
+            <div class="text-sm text-Neutral200 font-[700] mb-2">
               Wind
             </div>
-            <div class="text-xl font-DMSans">
+            <div class="text-2xl font-DMSans">
               14km/h
             </div>
           </div>
-          <div class="bg-Neutral800 font-BricolageGrotesque text-Neutral0 py-3 pl-4 rounded-md pr-12 flex-1">
-            <div class="text-xs font-[100] mb-2">
+          <div class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600">
+            <div class="text-sm text-Neutral200 font-[700] mb-2">
               Precipitation
             </div>
-            <div class="text-xl font-DMSans">
-              0mm
+            <div class="text-2xl font-DMSans">
+              0 mm
             </div>
           </div>
 
         </div>
       </section>
 
-      <section class="daily-forecast basis-0 grow-[2] flex bg-Neutral800 text-Neutral0 font-DMSans rounded-md">Daily Forecast</section>
+<!-- daily forecast -->
+      <div class="daily">
+        <h1 class="font-DMSans text-Neutral0 font-bold mb-2">Daily Forecast</h1>
+        <section class="daily-forecast flex justify-between gap-4">
+            <!-- individual day forecast card -->
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-3 py-4">
+              <h1 class="day">
+                Tue
+              </h1>
+              <img class="w-12" src="/assets/images/icon-sunny.webp" alt="">
+              <div class="temp flex justify-between gap-7  font-DMSans">
+                <span class="temp1">21<sup>o</sup></span>
+                <span class="temp2">19<sup>o</sup></span>
+              </div>
+            </div>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-3 py-4">
+              <h1 class="day">
+                Tue
+              </h1>
+              <img class="w-12" src="/assets/images/icon-sunny.webp" alt="">
+              <div class="temp flex justify-between gap-7  font-DMSans">
+                <span class="temp1">21<sup>o</sup></span>
+                <span class="temp2">19<sup>o</sup></span>
+              </div>
+            </div>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-3 py-4">
+              <h1 class="day">
+                Tue
+              </h1>
+              <img class="w-12" src="/assets/images/icon-sunny.webp" alt="">
+              <div class="temp flex justify-between gap-7  font-DMSans">
+                <span class="temp1">21<sup>o</sup></span>
+                <span class="temp2">19<sup>o</sup></span>
+              </div>
+            </div>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-3 py-4">
+              <h1 class="day">
+                Tue
+              </h1>
+              <img class="w-12" src="/assets/images/icon-sunny.webp" alt="">
+              <div class="temp flex justify-between gap-7  font-DMSans">
+                <span class="temp1">21<sup>o</sup></span>
+                <span class="temp2">19<sup>o</sup></span>
+              </div>
+            </div>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-3 py-4">
+              <h1 class="day">
+                Tue
+              </h1>
+              <img class="w-12" src="/assets/images/icon-sunny.webp" alt="">
+              <div class="temp flex justify-between gap-7  font-DMSans">
+                <span class="temp1">21<sup>o</sup></span>
+                <span class="temp2">19<sup>o</sup></span>
+              </div>
+            </div>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-3 py-4">
+              <h1 class="day">
+                Tue
+              </h1>
+              <img class="w-12" src="/assets/images/icon-sunny.webp" alt="">
+              <div class="temp flex justify-between gap-7  font-DMSans">
+                <span class="temp1">21<sup>o</sup></span>
+                <span class="temp2">19<sup>o</sup></span>
+              </div>
+            </div>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-3 py-4">
+              <h1 class="day">
+                Tue
+              </h1>
+              <img class="w-12" src="/assets/images/icon-sunny.webp" alt="">
+              <div class="temp flex justify-between gap-7  font-DMSans">
+                <span class="temp1">21<sup>o</sup></span>
+                <span class="temp2">19<sup>o</sup></span>
+              </div>
+            </div>
+        
+        </section>
+      </div>
     </main>
-
-    <aside class="hourly-forecast grow-[2] flex bg-Neutral800 text-Neutral0 font-DMSans rounded-md">
-Hourly Forecast
+<!-- left hand section - Button+ Hourly forecast -->
+    <aside class="left-col grow-[1] flex flex-col gap-6">
+      <div
+        class="search-button rounded-xl py-3 bg-Blue500 text-Neutral0 text-center focus:bg-Blue500 hover:cursor-pointer hover:bg-Blue600 focus:border-4 focus:border-double focus:border-Blue600">
+        Search
+      </div>
+      <div class="hourly-forecast basis-0 grow-[1] flex flex-col gap-4 bg-Neutral800 text-Neutral0 font-DMSans rounded-xl px-4 py-5">
+        <div class="flex justify-between gap-2">
+          <h1 class="font-DMSans font-bold">Hourly Forecast</h1>
+          <div class="dropdown-units flex text-Neutral0 bg-Neutral800 border border-Neutral600border border-Neutral600 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer">
+            <span class="ml-3">Tuesday</span>
+            <img class="w-4 ml-3" src= "/assets/images/icon-dropdown.svg"alt="">
+          </div>
+        </div>
+      </div>
     </aside>
   </div>
 
