@@ -897,6 +897,10 @@ video {
   border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
 }
 
+.border-transparent {
+  border-color: transparent;
+}
+
 .bg-Blue500 {
   --tw-bg-opacity: 1;
   background-color: hsl(233 67% 56% / var(--tw-bg-opacity, 1));
