@@ -33,21 +33,26 @@
       <h1 class="font-BricolageGrotesque text-Neutral0 text-5xl font-bold">How's the sky looking today?</h1>
     </div>
     <!-- Container for search bar and button -->
+    <div class="container search text-center flex mx-auto justify-center">
+    <!-- Flex Container for search bar -->
+      <div class="search-container relative flex items-center gap-4">
+        <img src="/assets/images/icon-search.svg" alt="search icon" class="absolute pointer-events-none ml-2">
+        <input type="search" placeholder="Search for a place..." class="pr-3 pl-10 py-2 h-full w-full appearance-none rounded-xl bg-Neutral800 font-DMSans text-Neutral0 placeholder-opacity-75 placeholder-Neutral0 hover:cursor-pointer border-4 border-transparent focus:border-2 focus:border-Neutral0">
+      </div>
+
+      <div class="search-button rounded-xl py-3 bg-Blue500 text-Neutral0 text-center focus:bg-Blue500 hover:cursor-pointer hover:bg-Blue600 focus:border-4 focus:border-double focus:border-Blue600">
+        Search
+      </div>
+
+    </div>
+
   </header>
 
 <!-- Main section -->
-  <div class="container dashboard flex items-stretch gap-6 my-10 px-10 py-0">
+  <div class="container dashboard flex justify-center items-stretch gap-6 my-10 px-10 py-0">
     <!-- right hand section - searhbar, weather-info and daily forecast -->
     <main class="current-weather flex flex-col gap-8 self-start">
       <!-- search -->
-      <div class="search gap-4 text-center flex">
-      <!-- Flex Container for search bar -->
-        <div class="search-container relative flex items-center gap-4 basis-0 grow-[4]">
-          <img src="/assets/images/icon-search.svg" alt="search icon" class="absolute pointer-events-none ml-2">
-          <input type="search" placeholder="Search for a place..." class="pr-3 pl-10 py-2 h-full w-full appearance-none rounded-xl bg-Neutral800 font-DMSans text-Neutral0 placeholder-opacity-75 placeholder-Neutral0  hover:cursor-pointer focus:border-none focus:border-2 focus:border-Neutral0">
-        </div>
-        
-      </div>
       <section class="current-info flex flex-col gap-5 justify-center">
         <!-- weather card -->
         <section
@@ -193,10 +198,6 @@
     </main>
 <!-- left hand section - Button+ Hourly forecast -->
     <aside class="left-col grow-[1] flex flex-col gap-6">
-      <div
-        class="search-button rounded-xl py-3 bg-Blue500 text-Neutral0 text-center focus:bg-Blue500 hover:cursor-pointer hover:bg-Blue600 focus:border-4 focus:border-double focus:border-Blue600">
-        Search
-      </div>
       <div class="hourly-forecast basis-0 grow-[1] flex flex-col gap-4 bg-Neutral800 text-Neutral0 font-DMSans rounded-xl px-4 py-5">
         <div class="flex justify-between gap-2">
           <h1 class="font-DMSans font-bold">Hourly Forecast</h1>

@@ -691,6 +691,10 @@ video {
   height: 100%;
 }
 
+.min-h-\[60px\] {
+  min-height: 60px;
+}
+
 .w-4 {
   width: 1rem;
 }
@@ -788,6 +792,10 @@ video {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-row-reverse {
