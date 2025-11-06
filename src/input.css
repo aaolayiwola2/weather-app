@@ -5,8 +5,7 @@
 /* DM Sans Variable Font */
 @font-face {
     font-family: 'DMSans';
-    src:url('/assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype')
-        url('/assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('woff'),
+    src: url('/assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype') url('/assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('woff'),
         url('/assets/fonts/DM_Sans/DMSans-VariableFont_opsz,wght.ttf') format('woff2');
     font-weight: 100 900;
     font-stretch: 75% 125%;
@@ -18,8 +17,8 @@
 @font-face {
     font-family: 'DMSansItalic';
     src: url('/assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('woff'),
-    url('/assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('woff2'),
-    url('/assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+        url('/assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('woff2'),
+        url('/assets/fonts/DM_Sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('truetype');
     font-weight: 100 900;
     font-stretch: 75% 125%;
     font-style: normal;
@@ -35,3 +34,14 @@
     font-style: normal;
     font-display: swap;
 }
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+

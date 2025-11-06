@@ -25,9 +25,20 @@ module.exports = {
         todaylarge: "url('/assets/images/bg-today-large.svg')",
         todaysmall: "url('/assets/images/bg-today-small.svg')",
       },
+      gridTemplateAreas: {
+        'large':[
+          'current current hourly',
+          'daily daily hourly',
+        ],
+        'small':[
+          'current',
+          'daily',
+          'hourly',
+        ],
+      }
     },
   },
   plugins: [
-    // require('@tailwindcss/forms'),
+    require('@savvywombat/tailwindcss-grid-areas')
   ],
 }
