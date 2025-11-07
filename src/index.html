@@ -19,37 +19,37 @@
     <div class="flex justify-between items-center mx-2 my-4">
       <img class="" src="/assets/images/logo.svg" alt="logo">
       <div tabindex="0"
-        class="dropdown-units relative flex text-Neutral0 bg-Neutral800 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer focus:border   focus:border-Neutral0">
+        class="units relative flex text-Neutral0 bg-Neutral800 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer focus:border focus:border-Neutral0">
         <img class="w-4" src="/assets/images/icon-units.svg" alt="">
         <span class="ml-3">Units</span>
         <img class="w-4 ml-3" src="/assets/images/icon-dropdown.svg" alt="">
         <div
           class="absolute units-dropdown invisible z-10 top-12 right-0 w-[200%] bg-Neutral800 flex flex-col gap-2 text-Neutral0 font-DMSans justify-evenly rounded-xl p-2 hover:cursor-pointer text-sm">
 
-          <div tabindex="0" class="bg-Neutral700 p-2 rounded-xl focus:border focus-border-Neutral0">Switch to Imperial
+          <div tabindex="0" class="unit-switch bg-Neutral700 p-2 rounded-xl focus:border focus-border-Neutral0">Switch to Imperial
           </div>
 
           <div id="Temperature">
             <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
               <h2 class="text-Neutral300">Temperature</h2>
-              <div class="bg-Neutral700 p-2 rounded-xl">Celsius (<sup>o</sup>C)</div>
-              <div class="p-2 rounded-xl">Fahrenheit (<sup>o</sup>F)</div>
+              <div class="metric active-unit p-2 rounded-xl">Celsius (<sup>o</sup>C)</div>
+              <div class="imperial p-2 rounded-xl">Fahrenheit (<sup>o</sup>F)</div>
               <hr class="opacity-20">
             </div>
           </div>
           <div id="Windspeed">
             <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
               <h2 class="text-Neutral300">Windspeed</h2>
-              <div class="bg-Neutral700 p-2 rounded-xl">km/h</div>
-              <div class="p-2 rounded-xl">mph</div>
+              <div class="metric bg-Neutral700 p-2 rounded-xl">km/h</div>
+              <div class="imperial p-2 rounded-xl">mph</div>
               <hr class="opacity-20">
             </div>
           </div>
             <div id="Precipitation">
               <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
                 <h2 class="text-Neutral300">Precipitation</h2>
-                <div class="bg-Neutral700 p-2 rounded-xl">Millimeters (mm)</div>
-                <div class="p-2 pb-0 rounded-xl">Inches (in)</div>
+                <div class="metric bg-Neutral700 p-2 rounded-xl">Millimeters (mm)</div>
+                <div class="imperial p-2 pb-0 rounded-xl">Inches (in)</div>
               </div>
               </div>
           
@@ -147,28 +147,28 @@
         </section>
       </main>
       <!-- left hand section - Button+ Hourly forecast -->
-      <aside class="flex flex-col grid-in-hourly max-h-[580px] overflow-y-scroll" >
+      <aside class="flex flex-col grid-in-hourly" >
         <div
           class="hourly flex flex-col gap-4 bg-Neutral800 text-Neutral0 font-DMSans rounded-xl px-4 py-5">
-          <div class="flex justify-between items-center gap-3">
+          <div class="flex justify-between items-center gap-3otion">
             <h1 class="font-DMSans font-bold">Hourly Forecast</h1>
-            <div tabindex="0" class="dropdown-units relative flex text-Neutral0 bg-Neutral600 border border-Neutral700 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer focus:border-1 focus:border-Neutral0">
-               <span class="ml-3">Tuesday</span>
+            <div tabindex="0" class="dropdown-day relative flex text-Neutral0 bg-Neutral600 border border-Neutral700 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer focus:border-1 focus:border-Neutral0">
+               <span class="day-select ml-3">Monday</span>
               <img class="w-4 ml-3" src="/assets/images/icon-dropdown.svg" alt="">
 
               <div
                 class="days-dropdown absolute invisible flex flex-col gap-4 justify-between bg-Neutral700 text-Neutral0 font-DMSans w-[200%] z-50 top-14 right-0 rounded-xl p-2">
-                <div class="bg-Neutral600 rounded-xl px-2 py-2">Monday</div>
-                <div class="px-2 py-2">Tuesday</div>
-                <div class="px-2 py-2">Wednesday</div>
-                <div class="px-2 py-2">Thursday</div>
-                <div class="px-2 py-2">Friday</div>
-                <div class="px-2 py-2">Saturday</div>
-                <div class="px-2 py-2">Sunday</div>
+                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Monday</div>
+                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Tuesday</div>
+                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Wednesday</div>
+                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Thursday</div>
+                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Friday</div>
+                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Saturday</div>
+                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Sunday</div>
               </div>
             </div>
           </div>
-          <div class="hourly-forecast flex flex-col justify-between gap-[9px]">
+          <div class="hourly-forecast flex flex-col justify-between gap-[9px] h-[490px] overflow-y-scroll">
             <div
               class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
               <div class="flex items-center justify-center">
@@ -501,5 +501,7 @@
   </div>
 
 </body>
+
+<script  src="./scripts.js"></script>
 
 </html>
