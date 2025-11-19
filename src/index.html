@@ -9,7 +9,7 @@
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
 
-  <title>Frontend Mentor | Weather app</title>
+  <title>Frontend Mentor || Weather app</title>
 </head>
 
 <body class="flex flex-col bg-Blue700 no-scrollbar px-4 mx-auto">
@@ -32,24 +32,45 @@
           <div id="Temperature">
             <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
               <h2 class="text-Neutral300">Temperature</h2>
-              <div class="metric active-unit p-2 rounded-xl">Celsius (<sup>o</sup>C)</div>
-              <div class="imperial p-2 rounded-xl">Fahrenheit (<sup>o</sup>F)</div>
+              <div data-unit="metric" class="p-2 rounded-xl flex justify-between">
+                <span>Celsius (<sup>o</sup>C)</span> 
+                <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
+              
+              </div>
+              <div data-unit="imperial" class="p-2 rounded-xl flex justify-between">
+                <span>Fahrenheit (<sup>o</sup>F)</span>
+                <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
+              </div>
               <hr class="opacity-20">
             </div>
           </div>
           <div id="Windspeed">
             <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
               <h2 class="text-Neutral300">Windspeed</h2>
-              <div class="metric bg-Neutral700 p-2 rounded-xl">km/h</div>
-              <div class="imperial p-2 rounded-xl">mph</div>
+              <div data-unit="metric" class="p-2 rounded-xl flex justify-between">
+                <span>km/h</span>
+                <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
+              </div>
+              <div data-unit="imperial" class="p-2 rounded-xl flex justify-between">
+              <span>mph</span>
+              <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
+            </div>
               <hr class="opacity-20">
             </div>
           </div>
+
             <div id="Precipitation">
               <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
                 <h2 class="text-Neutral300">Precipitation</h2>
-                <div class="metric bg-Neutral700 p-2 rounded-xl">Millimeters (mm)</div>
-                <div class="imperial p-2 pb-0 rounded-xl">Inches (in)</div>
+                <div data-unit="metric" class="p-2 rounded-xl flex justify-between">
+                  <span>Millimeters (mm)</span>
+                <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
+                </div>
+
+                <div data-unit="imperial" class="p-2 pb-0 rounded-xl flex justify-between">
+                  <span>Inches (in)</span>
+                  <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
+                </div>
               </div>
               </div>
           

@@ -35,6 +35,12 @@
     font-display: swap;
 }
 
-.active-unit{
+
+.imperial, .metric {
+    display: none;
+}
+
+.active-unit {
+    display: block;
     background-color: var(--Neutral700);
 }

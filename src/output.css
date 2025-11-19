@@ -1092,10 +1092,6 @@ video {
   font-display: swap;
 }
 
-.active-unit{
-  background-color: var(--Neutral700);
-}
-
 .hover\:cursor-pointer:hover {
   cursor: pointer;
 }
