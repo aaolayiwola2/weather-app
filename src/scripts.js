@@ -3,11 +3,11 @@ const unitsDrop = document.querySelector(".units-dropdown");
 const search = document.querySelector(".search-field");
 const dayDrop = document.querySelector(".dropdown-day");
 // Find dropdowns that live inside the control wrappers
-const cityDrop = search?.querySelector(".city-dropdown") ?? null;
-const daysDrop = dayDrop?.querySelector(".days-dropdown") ?? null;
-const unitSwitch = unitsDrop.querySelector(".unit-switch");
+const cityDrop = search ? search.querySelector('.city-dropdown') : null;
+const daysDrop = dayDrop ? dayDrop.querySelector('.days-dropdown') : null;
+const unitSwitch = unitsDrop ? unitsDrop.querySelector('.unit-switch') : undefined;
 
-// UNITS
+
 
 /** MAIN UI STATE MANAGEMENT */
 // Craete a class to handle the UI state on loading, change of units and on city search
@@ -117,3 +117,9 @@ days.forEach((day) => {
     activeDay.textContent = day.textContent;
   });
 });
+
+
+
+
+
+
