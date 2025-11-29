@@ -83,60 +83,60 @@ const UI = {
  */
 const WeatherIconMap = {
   // Clear sky
-  "0": "sunny",
+  0: "sunny",
 
   // Mainly clear, partly cloudy
-  "1": "partly-cloudy",
-  "2": "partly-cloudy",
+  1: "partly-cloudy",
+  2: "partly-cloudy",
 
   // Overcast
-  "3": "overcast",
+  3: "overcast",
 
   // Fog and depositing rime fog
-  "45": "fog",
-  "48": "fog",
+  45: "fog",
+  48: "fog",
 
   // Drizzle: Light, moderate, and dense intensity
-  "51": "drizzle",
-  "53": "drizzle",
-  "55": "drizzle",
+  51: "drizzle",
+  53: "drizzle",
+  55: "drizzle",
 
   // Freezing Drizzle: Light and dense intensity
-  "56": "drizzle",
-  "57": "drizzle",
+  56: "drizzle",
+  57: "drizzle",
 
   // Rain: Slight, moderate and heavy intensity
-  "61": "rainy",
-  "63": "rainy",
-  "65": "rainy",
+  61: "rain",
+  63: "rain",
+  65: "rain",
 
   // Freezing Rain: Light and heavy intensity
-  "66": "rainy",
-  "67": "rainy",
+  66: "rain",
+  67: "rain",
 
   // Snow fall: Slight, moderate, and heavy intensity
-  "71": "snow",
-  "73": "snow",
-  "75": "snow",
+  71: "snow",
+  73: "snow",
+  75: "snow",
 
   // Snow grains
-  "77": "snow",
+  77: "snow",
 
   // Rain showers: Slight, moderate, and violent
-  "80": "rainy",
-  "81": "rainy",
-  "82": "rainy",
+  80: "rain",
+  81: "rain",
+  82: "rain",
 
   // Snow showers slight and heavy
-  "85": "snow",
-  "86": "snow",
+  85: "snow",
+  86: "snow",
 
   // Thunderstorm: Slight or moderate
-  "95": "storm",
+  95: "storm",
 
   // Thunderstorm with slight and heavy hail
-  "96": "storm",
-  "99": "storm"
+  96: "storm",
+  99: "storm",
 };
 
 /** STATE MANAGEMENT - BRAIN*/
@@ -168,15 +168,12 @@ const AppState = {
 
   toggleUnits() {
     // change state of the metric units
-
     this.isMetric = !this.isMetric;
 
     // add to storage
-
     this.saveStorage();
 
     // update the Metric unit UI
-
     RenderUI.updateMetricUI();
   },
 
@@ -212,12 +209,12 @@ const Utils = {
     };
   },
 
-  getWeatherIcon(code){
+  getWeatherIcon(code) {
     const iconName = WeatherIconMap[code];
     console.log(iconName);
 
     return iconName ? iconName : "sunny";
-  }
+  },
 };
 
 /** CONTROLLER*/
@@ -297,17 +294,20 @@ const Controller = {
       if (!options) return;
       const { lat, lon, city, country } = options.dataset;
       console.log(options.dataset);
-      
-      console.log( lat, lon, city, country);
+
+      console.log(lat, lon, city, country);
 
       UI.search.value = "";
       UI.cityDrop.classList.add("invisible");
 
       // fetch weather data
-      WeatherService.fetchWeatherData({
-        lat: parseFloat(lat),
-        lon: parseFloat(lon),
-      }, {city,country});
+      WeatherService.fetchWeatherData(
+        {
+          lat: parseFloat(lat),
+          lon: parseFloat(lon),
+        },
+        { city, country },
+      );
     });
   },
 };
@@ -316,8 +316,8 @@ const Controller = {
 
 const RenderUI = {
   updateDashboard(location, weather) {
-    console.log('dashboard updated');
-    
+    console.log("dashboard updated");
+
     // update the City and country nmae
     UI.cityName.textContent = `${location.city}, ${location.country}`;
 
@@ -334,48 +334,55 @@ const RenderUI = {
     UI.currentYear.textContent = year;
 
     const { temp, feels_like, humidity, wind, precipitation, weathercode } =
-    weather;
+      weather;
     console.log(weather);
-    
 
     UI.currentTemp.textContent = temp;
     UI.currentFeel.textContent = feels_like;
     UI.currentHumidity.textContent = humidity + "%";
     UI.currentWind.textContent = wind + (AppState.isMetric ? " kmh" : " mph");
-    UI.currentPrecipitation.textContent = precipitation + (AppState.isMetric ? " mm" : " in");
+    UI.currentPrecipitation.textContent =
+      precipitation + (AppState.isMetric ? " mm" : " in");
 
-    const iconName = Utils.getWeatherIcon(weathercode)
+    const iconName = Utils.getWeatherIcon(weathercode);
     const iconPath = `/assets/images/icon-${iconName}.webp`;
     UI.weatherIcon.src = iconPath;
     UI.weatherIcon.alt = iconName;
   },
 
-async updateDailyUI(data){
-  console.log("daily update");
-  const {days, dailyCode, dailyTempData, dailyAppTempData} = data;
-  console.log(dailyCode);
+  async updateDailyUI(data) {
+    const { days, dailyCode, dailyTempData, dailyAppTempData } = data;
+    console.log(days);
+
+    // creat a new array to get shortened days
+    const shortDays = UI.allDays.map((day) => {
+      return day.slice(0,3)
+    });
+
+    const dayNames = days.map((dayString) => {
+      // create a code based on the curren day
+      const newDay = new Date(dayString);
+      const dayIndex = newDay.getDay();
+      return shortDays[dayIndex]; 
+    });
   
-  // loop over each value of the daily temp array data
-  for (let index = 0; index < UI.dailyTemp.length; index++) {
-      // assign each of these h2 text content as the value of the data 
+    // loop over each value of the daily temp array data
+    for (let index = 0; index < UI.dailyTemp.length; index++) {
+      // assign each of these h2 text content as the value of the data
+      UI.dayName[index].textContent = dayNames[index];
       UI.dailyTemp[index].textContent = dailyTempData[index];
-      UI.dailyAppTemp[index].textContent = dailyAppTempData[index];   
+      UI.dailyAppTemp[index].textContent = dailyAppTempData[index];
 
       const iconName = Utils.getWeatherIcon(dailyCode[index]);
-      console.log(iconName);
-      
       const iconPath = `/assets/images/icon-${iconName}.webp`;
-      
+
       UI.dayIcon.forEach((icon) => {
         icon.src = iconPath;
         icon.alt = iconName;
-      })
-    }
-    for (let i = 0; i < UI.allDays.length; i++) {
-      UI.allDays.forEach((day)=> {
-        const newDay = day.slice(0,3)
-        UI.dayName[i].textContent = newDay;
-      })
+      });
+
+      // Populate the UI day name elements using the computed abbreviations
+      // UI.dayName[index].textContent = days[index]
     }
   },
   // update metric info UI
@@ -402,22 +409,51 @@ async updateDailyUI(data){
 
       element.querySelector("img").classList.toggle("invisible", !isActive);
     });
-
-    let coords = await WeatherService.getCoordinatesPromise();
-    console.log(coords);
-
     // fetch data using the current unit state
-    WeatherService.fetchWeatherData(coords);
+    const lat = localStorage.getItem("lat");
+    const lon = localStorage.getItem("lon");
+    const city = localStorage.getItem("city");
+    const country = localStorage.getItem("country");
+
+    const coords = { lat, lon };
+    const location = { city, country };
+    WeatherService.fetchWeatherData(coords, location);
   },
 
-  updateHourlyUI(dayId) {
+  updateHourlyUI(dayId, data) {
     let day = UI.days[dayId];
-
+    
     // display the name of the day based on the day clicked
     UI.activeDay.innerText = day.textContent;
     console.log(day);
-
+    // hide the dropdown
     UI.daysDrop.classList.add("invisible");
+
+    const { days, dailyCode, dailyTempData, dailyAppTempData } = data;
+    console.log(dailyCode);
+
+    // loop over each value of the daily temp array data
+    for (let index = 0; index < UI.dailyTemp.length; index++) {
+      // assign each of these h2 text content as the value of the data
+      UI.dailyTemp[index].textContent = dailyTempData[index];
+      UI.dailyAppTemp[index].textContent = dailyAppTempData[index];
+
+      const iconName = Utils.getWeatherIcon(dailyCode[index]);
+      console.log(iconName);
+
+      const iconPath = `/assets/images/icon-${iconName}.webp`;
+
+      UI.dayIcon.forEach((icon) => {
+        icon.src = iconPath;
+        icon.alt = iconName;
+      });
+    }
+    for (let i = 0; i < UI.allDays.length; i++) {
+      UI.allDays.forEach((day) => {
+        const newDay = day.slice(0, 3);
+        UI.dayName[i].textContent = newDay;
+      });
+    }
   },
 };
 
@@ -460,6 +496,14 @@ const WeatherService = {
     country = location.country;
     console.log(lat, lon);
 
+    localStorage.setItem("lat", lat);
+    const newLat = localStorage.getItem("lat");
+    console.log(newLat);
+
+    localStorage.setItem("lon", lon);
+    localStorage.setItem("city", city);
+    localStorage.setItem("country", country);
+
     tempUnit = AppState.isMetric ? "celsius" : "fahrenheit";
     windUnit = AppState.isMetric ? "kmh" : "mph";
     precipUnit = AppState.isMetric ? "mm" : "inch";
@@ -494,76 +538,73 @@ const WeatherService = {
       wind: wind_speed_10m,
       precipitation: precipitation,
       weathercode: weathercode,
-      tempUnit:tempUnit,
-      precipUnit:precipUnit,
-      windUnit:windUnit,
+      tempUnit: tempUnit,
+      precipUnit: precipUnit,
+      windUnit: windUnit,
     };
     // location ain't defined
-    RenderUI.updateDashboard({city, country}, currentWeather);
+    RenderUI.updateDashboard({ city, country }, currentWeather);
 
     // process daily data
     const daily = data.daily;
     console.log(daily);
     const days = daily.time;
     const dailyCode = daily.weather_code;
-    const dailyTempData = daily.temperature_2m_max
+    const dailyTempData = daily.temperature_2m_max;
     const dailyAppTempData = daily.apparent_temperature_max;
 
-    const dailyWeather = {      
+    const dailyWeather = {
       days: days,
       dailyCode: dailyCode,
-      dailyTempData:dailyTempData,
-      dailyAppTempData:dailyAppTempData
-    }
+      dailyTempData: dailyTempData,
+      dailyAppTempData: dailyAppTempData,
+    };
 
-RenderUI.updateDailyUI(dailyWeather)
+    RenderUI.updateDailyUI(dailyWeather);
 
-      
-      const hourlyData = data.hourly;
-      
-    },
-
+    const hourlyData = data.hourly;
+  },
 
   // Takes in search input, fetches city suggestions from OpenMeteo Geo-coding, and display/closes the suggestions dynamically with the returned city data as stored as IDs in the divs.
   async handleSearch(e) {
     try {
-        const value = e.target.value;
-        
-        // 1. Clear OLD suggestions immediately when new search starts
-        UI.cityDrop.innerHTML = ""; 
-        UI.cityDrop.classList.add("invisible"); // Hide until ready
+      const value = e.target.value;
 
-        if (!value) return;
+      // 1. Clear OLD suggestions immediately when new search starts
+      UI.cityDrop.innerHTML = "";
+      UI.cityDrop.classList.add("invisible"); // Hide until ready
 
-        const fetchedCities = await fetch(
-            `https://geocoding-api.open-meteo.com/v1/search?name=${value}&count=10&language=en&format=json`
-        );
-        const cities = await fetchedCities.json();
-        
-        // 2. Validate the data structure
-        const suggestions = cities.results || []; // Fallback to empty array if undefined
-        console.log("Fresh API Data:", suggestions); // ✅ Check this log!
+      if (!value) return;
 
-        const shouldHide = !value || suggestions.length === 0;
-        UI.cityDrop.classList.toggle("invisible", shouldHide);
+      const fetchedCities = await fetch(
+        `https://geocoding-api.open-meteo.com/v1/search?name=${value}&count=10&language=en&format=json`,
+      );
+      const cities = await fetchedCities.json();
 
-        let lat, lon, city, country;
-        if (!shouldHide) {
-            const innerHTML = suggestions
-                .map((result) => {
-                    // 3. Explicit Destructuring with Fallbacks
-                    let newCountry = result.country;
-                    if (newCountry === "Israel" || !newCountry) {
-                      newCountry = "Palestine ˗ˏˋ 🍉 ˎˊ˗"
-                    }
-                    // Open-Meteo sometimes returns 'undefined' for country if it's implied
-                    city = result.name || "Unknown Place";
-                    country = newCountry;
-                    lat = result.latitude;
-                    lon = result.longitude;
-                    
-                    // 4. Log inside the map to see exactly what is being rendered
-                    return `
+      // 2. Validate the data structure
+      const suggestions = cities.results || []; // Fallback to empty array if undefined
+      console.log("Fresh API Data:", suggestions); // ✅ Check this log!
+
+      const shouldHide = !value || suggestions.length === 0;
+      UI.cityDrop.classList.toggle("invisible", shouldHide);
+
+      let lat, lon, city, country;
+      if (!shouldHide) {
+        const innerHTML = suggestions
+          .map((result) => {
+            // 3. Explicit Destructuring with Fallbacks
+            let newCountry = result.country;
+            if (newCountry === "Israel" || !newCountry) {
+              newCountry = "Palestine ˗ˏˋ 🍉 ˎˊ˗";
+            }
+            // Open-Meteo sometimes returns 'undefined' for country if it's implied
+            city = result.name || "Unknown Place";
+            country = newCountry;
+            lat = result.latitude;
+            lon = result.longitude;
+
+            // 4. Log inside the map to see exactly what is being rendered
+            return `
                         <div
                             data-lat="${lat}"
                             data-lon="${lon}"
@@ -574,15 +615,14 @@ RenderUI.updateDailyUI(dailyWeather)
                             ${city}, ${country}
                         </div>
                     `;
-                })
-                .join("");
-            UI.cityDrop.innerHTML = innerHTML;            
-        }
+          })
+          .join("");
+        UI.cityDrop.innerHTML = innerHTML;
+      }
     } catch (error) {
-        console.error("Search Error:", error);
+      console.error("Search Error:", error);
     }
-    
-},
+  },
 
   /** Role: The Data Source. Returns a Promise that resolves with {lat, lon}.*/
 
