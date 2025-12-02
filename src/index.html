@@ -1,526 +1,503 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <link rel="stylesheet" href="./output.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/images/favicon-32x32.png"
+    />
+    <title>Frontend Mentor || Weather app</title>
+  </head>
 
-<head>
-  <link rel="stylesheet" href="./output.css">
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- displays site properly based on user's device -->
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
-
-  <title>Frontend Mentor || Weather app</title>
-</head>
-
-<body class="flex flex-col bg-Blue700 no-scrollbar px-4 mx-auto">
-    
-  <!-- Navbar -->
-  <nav>
-    <div class="flex justify-between items-center mx-2 my-4">
-      <img class="" src="/assets/images/logo.svg" alt="logo">
-      <div tabindex="0"
-        class="units relative flex text-Neutral0 bg-Neutral800 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer focus:border focus:border-Neutral0">
-        <img class="w-4" src="/assets/images/icon-units.svg" alt="">
-        <span class="ml-3">Units</span>
-        <img class="w-4 ml-3" src="/assets/images/icon-dropdown.svg" alt="">
+  <body class="flex flex-col bg-Blue700 no-scrollbar px-4 mx-auto min-h-screen">
+    <!-- ======================== NAVBAR ======================== -->
+    <nav>
+      <div class="flex justify-between items-center mx-2 my-4">
+        <img class="" src="/assets/images/logo.svg" alt="logo" />
         <div
-          class="absolute units-dropdown invisible z-10 top-12 right-0 w-[200%] bg-Neutral800 flex flex-col gap-2 text-Neutral0 font-DMSans justify-evenly rounded-xl p-2 hover:cursor-pointer text-sm">
+          tabindex="0"
+          class="units relative flex text-Neutral0 bg-Neutral800 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer focus:border focus:border-Neutral0"
+        >
+          <img class="w-4" src="/assets/images/icon-units.svg" alt="" />
+          <span class="ml-3">Units</span>
+          <img class="w-4 ml-3" src="/assets/images/icon-dropdown.svg" alt="" />
+          <div
+            class="absolute units-dropdown invisible z-10 top-12 right-0 w-[200%] bg-Neutral800 flex flex-col gap-2 text-Neutral0 font-DMSans justify-evenly rounded-xl p-2 hover:cursor-pointer text-sm"
+          >
+            <div
+              tabindex="0"
+              class="unit-switch bg-Neutral700 p-2 rounded-xl focus:border focus-border-Neutral0"
+            >
+              Switch to Imperial
+            </div>
 
-          <div tabindex="0" class="unit-switch bg-Neutral700 p-2 rounded-xl focus:border focus-border-Neutral0">Switch to Imperial
-          </div>
-
-          <div id="Temperature">
-            <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
-              <h2 class="text-Neutral300">Temperature</h2>
-              <div data-unit="metric" class="p-2 rounded-xl flex justify-between">
-                <span>Celsius (<sup>o</sup>C)</span> 
-                <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
-              
+            <div id="Temperature">
+              <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
+                <h2 class="text-Neutral300">Temperature</h2>
+                <div
+                  data-unit="metric"
+                  class="p-2 rounded-xl flex justify-between"
+                >
+                  <span>Celsius (<sup>o</sup>C)</span>
+                  <img
+                    src="../assets/images/icon-checkmark.svg"
+                    alt="icon-checkmark"
+                    class="invisible"
+                  />
+                </div>
+                <div
+                  data-unit="imperial"
+                  class="p-2 rounded-xl flex justify-between"
+                >
+                  <span>Fahrenheit (<sup>o</sup>F)</span>
+                  <img
+                    src="../assets/images/icon-checkmark.svg"
+                    alt="icon-checkmark"
+                    class="invisible"
+                  />
+                </div>
+                <hr class="opacity-20" />
               </div>
-              <div data-unit="imperial" class="p-2 rounded-xl flex justify-between">
-                <span>Fahrenheit (<sup>o</sup>F)</span>
-                <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
+            </div>
+            <div id="Windspeed">
+              <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
+                <h2 class="text-Neutral300">Windspeed</h2>
+                <div
+                  data-unit="metric"
+                  class="p-2 rounded-xl flex justify-between"
+                >
+                  <span>km/h</span>
+                  <img
+                    src="../assets/images/icon-checkmark.svg"
+                    alt="icon-checkmark"
+                    class="invisible"
+                  />
+                </div>
+                <div
+                  data-unit="imperial"
+                  class="p-2 rounded-xl flex justify-between"
+                >
+                  <span>mph</span>
+                  <img
+                    src="../assets/images/icon-checkmark.svg"
+                    alt="icon-checkmark"
+                    class="invisible"
+                  />
+                </div>
+                <hr class="opacity-20" />
               </div>
-              <hr class="opacity-20">
             </div>
-          </div>
-          <div id="Windspeed">
-            <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
-              <h2 class="text-Neutral300">Windspeed</h2>
-              <div data-unit="metric" class="p-2 rounded-xl flex justify-between">
-                <span>km/h</span>
-                <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
-              </div>
-              <div data-unit="imperial" class="p-2 rounded-xl flex justify-between">
-              <span>mph</span>
-              <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
-            </div>
-              <hr class="opacity-20">
-            </div>
-          </div>
 
             <div id="Precipitation">
               <div class="flex flex-col gap-2 pl-2 text-xs font-bold">
                 <h2 class="text-Neutral300">Precipitation</h2>
-                <div data-unit="metric" class="p-2 rounded-xl flex justify-between">
-                  <span>Millimeters (mm)</span>
-                <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
-                </div>
-
-                <div data-unit="imperial" class="p-2 pb-0 rounded-xl flex justify-between">
-                  <span>Inches (in)</span>
-                  <img src="../assets/images/icon-checkmark.svg" alt="icon-checkmark" class="invisible">
-                </div>
-              </div>
-              </div>
-          
-          </div>
-        </div>
-      </div>
-  </nav>
-
-  <!-- Header -->
-  <header>
-    <div class="hero-text max-w-3xl mx-auto my-10 px-30 py-0 text-center">
-      <!-- Hero text -->
-      <h1 class="font-BricolageGrotesque text-Neutral0 text-5xl font-bold">How's the sky looking today?</h1>
-    </div>
-
-  </header>
-
-  <!-- Main section -->
-  <div class="grid w-full gap-8 mx-auto my-10 px-10 py-0">
-    <!-- search -->
-    <div class="md:grid flex justify-self-center w-full md:w-[37rem]">
-      <div class="search md:grid flex flex-col content-stretch md:grid-cols-[1fr_auto] w-full gap-4">
-        <div class="search-field relative w-full flex-1 flex items-center">
-          <img src="/assets/images/icon-search.svg" alt="search icon" class="absolute pointer-events-none ml-2">
-          <input type="search" placeholder="Search for a place..."
-            class="pr-3 pl-10 py-2 h-full w-full appearance-none rounded-xl bg-Neutral800 font-DMSans text-Neutral0 placeholder-opacity-75 placeholder-Neutral0 hover:cursor-pointer focus:border-2 focus:border-Neutral0">
                 <div
-                class="city-dropdown invisible absolute flex flex-col gap-4 justify-between bg-Neutral700 text-Neutral0 font-DMSans w-[100%] z-50 top-14 right-0 rounded-xl p-2">
-                
+                  data-unit="metric"
+                  class="p-2 rounded-xl flex justify-between"
+                >
+                  <span>Millimeters (mm)</span>
+                  <img
+                    src="../assets/images/icon-checkmark.svg"
+                    alt="icon-checkmark"
+                    class="invisible"
+                  />
+                </div>
+
+                <div
+                  data-unit="imperial"
+                  class="p-2 pb-0 rounded-xl flex justify-between"
+                >
+                  <span>Inches (in)</span>
+                  <img
+                    src="../assets/images/icon-checkmark.svg"
+                    alt="icon-checkmark"
+                    class="invisible"
+                  />
+                </div>
               </div>
+            </div>
+          </div>
         </div>
-        <button
-          class="search-button flex-1 duration-5000 rounded-xl px-5 py-3 bg-Blue500 text-Neutral0 text-center hover:bg-Blue600 hover:cursor-pointer focus:bg-Blue500 focus:ring ring-Blue500 ring-offset-2 ring-offset-Blue700">
-          Search
-        </button>
       </div>
-    </div>
-    <div class="dashboard grid lg:grid-cols-[repeat(3,1fr)] lg:grid-areas-large auto-rows-auto gap-8 items-stretch content-stretch w-full h-full grid-cols-1 grid-areas-small">
-      <!-- right hand section - searhbar, weather-info and daily forecast -->
-      <main class="flex flex-col justify-items-stretch h-full grid-in-current">
-        <!-- weather card -->
-        <section class="current flex flex-col gap-5 justify-center h-full">
-          <div
-            class="current-weather flex md:flex-row flex-col gap-6 md:justify-between md:items-center justify-center bg-[url('/assets/images/bg-today-large.svg')] bg-cover bg-no-repeat bg-center text-Neutral0 px-2 py-10 md:py-20 md:px-5 rounded-xl shadow-xl">
-            <div class="flex md:items-stretch flex-col items-center font-DMSans">
-              <div class="city-name font-bold text-3xl">
-                - -
-              </div>
-              <div class="date text-Neutral200 font-bold">
-                <span class="current-day">Tuesday</span>, <span class="current-month">Aug</span> <span class="current-date">5</span>, <span class="current-year">2025</span>
-              </div>
-            </div>
-            <div class="degree flex items-center justify-center justify-items-center relative">
-              <img class="current-icon max-w-20 mr-10 aspect-square" src="/assets/images/icon-sunny.webp" alt="">
-              <span class="font-DMSansItalic font-bold text-7xl"><span class="current-temp">20</span><sup>o</sup></span>
-            </div>
-          </div>
-          <!-- weather info -->
-          <div class="current-info flex-grow grid md:grid-cols-4 grid-cols-2 gap-2">
-            <div class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600">
-              <div class="text-sm text-Neutral200 font-[700] mb-2">
-                Feels like
-              </div>
-              <div class="text-2xl font-DMSans">
-                <span class="current-feel">-</span><sup>o</sup>
-              </div>
-            </div>
-            <div class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600">
-              <div class="text-sm text-Neutral200 font-[700] mb-2">
-                Humidity
-              </div>
-              <div class="current-humidity text-2xl font-DMSans">
-                -
-              </div>
-            </div>
-            <div class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600">
-              <div class="text-sm text-Neutral200 font-[700] mb-2">
-                Wind
-              </div>
-              <div class="current-wind text-2xl font-DMSans">
-                -
-              </div>
-            </div>
-            <div class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600">
-              <div class="text-sm text-Neutral200 font-[700] mb-2">
-                Precipitation
-              </div>
-              <div class="current-precipitation text-2xl font-DMSans">
-                -
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-      <!-- left hand section - Button+ Hourly forecast -->
-      <aside class="flex flex-col grid-in-hourly" >
+    </nav>
+
+    <!-- ======================== HEADER ======================== -->
+    <header>
+      <div class="hero-text max-w-3xl mx-auto my-10 px-30 py-0 text-center">
+        <h1 class="font-BricolageGrotesque text-Neutral0 text-5xl font-bold">
+          How's the sky looking today?
+        </h1>
+      </div>
+    </header>
+
+    <!-- ======================== MAIN CONTAINER ======================== -->
+    <div class="grid w-full gap-8 mx-auto my-10 px-10 py-0">
+      <!-- 1. SEARCH BAR (ALWAYS VISIBLE) -->
+      <div class="md:grid flex justify-self-center w-full md:w-[37rem]">
         <div
-          class="hourly flex flex-col gap-4 bg-Neutral800 text-Neutral0 font-DMSans rounded-xl px-4 py-5">
-          <div class="flex justify-between items-center gap-3">
-            <h1 class="font-DMSans font-bold">Hourly Forecast</h1>
-            <div tabindex="0" class="relative flex text-Neutral0 bg-Neutral600 border border-Neutral700 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer focus:border-1 focus:border-Neutral0">
-               <span class="day-select ml-3">Monday</span>
-              <img class="w-4 ml-3" src="/assets/images/icon-dropdown.svg" alt="">
-
-              <div
-                class="days-dropdown absolute invisible flex flex-col gap-4 justify-between bg-Neutral700 text-Neutral0 font-DMSans w-[200%] z-50 top-14 right-0 rounded-xl p-2">
-                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Monday</div>
-                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Tuesday</div>
-                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Wednesday</div>
-                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Thursday</div>
-                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Friday</div>
-                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Saturday</div>
-                <div class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-xl">Sunday</div>
-              </div>
-            </div>
+          class="search md:grid flex flex-col content-stretch md:grid-cols-[1fr_auto] w-full gap-4"
+        >
+          <div class="search-field relative w-full flex-1 flex items-center">
+            <img
+              src="/assets/images/icon-search.svg"
+              alt="search icon"
+              class="absolute pointer-events-none ml-2"
+            />
+            <input
+              type="search"
+              placeholder="Search for a place..."
+              class="pr-3 pl-10 py-2 h-full w-full appearance-none rounded-xl bg-Neutral800 font-DMSans text-Neutral0 placeholder-opacity-75 placeholder-Neutral0 hover:cursor-pointer focus:border-2 focus:border-Neutral0"
+            />
+            <div
+              class="city-dropdown invisible absolute flex flex-col gap-4 justify-between bg-Neutral700 text-Neutral0 font-DMSans w-[100%] z-50 top-14 right-0 rounded-xl p-2"
+            ></div>
           </div>
-          <div class="hourly-forecast flex flex-col justify-between gap-[9px] h-[490px] overflow-y-scroll">
+          <button
+            class="search-button flex-1 duration-5000 rounded-xl px-5 py-3 bg-Blue500 text-Neutral0 text-center hover:bg-Blue600 hover:cursor-pointer focus:bg-Blue500 focus:ring ring-Blue500 ring-offset-2 ring-offset-Blue700"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+
+      <!-- ========================================================= -->
+      <!-- VIEW 1: ERROR STATE (Hidden by default)                   -->
+      <!-- ========================================================= -->
+      <div
+        id="error-view"
+        class="hidden flex flex-col items-center justify-center mt-20 text-center animate-pulse"
+      >
+        <h2 class="text-Neutral0 text-3xl font-bold mb-2">
+          No search result found!
+        </h2>
+        <p class="text-Neutral200">
+          We couldn't find that location. Please try again.
+        </p>
+      </div>
+
+      <!-- ========================================================= -->
+      <!-- VIEW 2: LOADING STATE (Hidden by default)                 -->
+      <!-- ========================================================= -->
+      <!-- This mimics your grid layout but with skeleton boxes -->
+      <div id="loading-view" class="hidden w-full h-full animate-pulse">
+        <div
+          class="grid lg:grid-cols-[repeat(3,1fr)] lg:grid-areas-large gap-8 w-full h-full grid-cols-1 grid-areas-small"
+        >
+          <!-- Main Section Skeleton -->
+          <main class="flex flex-col gap-5 grid-in-current h-full">
+            <!-- Big Card -->
             <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  3 PM
-                </h1>
+              class="bg-Neutral700 rounded-3xl h-[400px] w-full flex items-center justify-center"
+            >
+              <div class="text-Neutral300 font-bold tracking-widest">
+                LOADING...
               </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
             </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  4 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
+            <!-- 4 Small Cards -->
+            <div class="grid md:grid-cols-4 grid-cols-2 gap-2 h-32">
+              <div class="bg-Neutral700 rounded-xl h-full"></div>
+              <div class="bg-Neutral700 rounded-xl h-full"></div>
+              <div class="bg-Neutral700 rounded-xl h-full"></div>
+              <div class="bg-Neutral700 rounded-xl h-full"></div>
             </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  5 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  6 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  7 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  8 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  9 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
-            </div>
-            <div
-              class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
-              <div class="flex items-center justify-center">
-                <img class="w-8" src="/assets/images/icon-sunny.webp" alt="">
-                <h1 id="hour">
-                  10 PM
-                </h1>
-              </div>
-              <h2 class="hour-temp text-sm">20<sup>o</sup></h2>
+          </main>
+
+          <!-- Hourly Skeleton -->
+          <aside
+            class="grid-in-hourly bg-Neutral700 rounded-xl h-[500px] w-full"
+          ></aside>
+
+          <!-- Daily Skeleton -->
+          <div class="grid-in-daily w-full">
+            <div class="grid md:grid-cols-7 grid-cols-3 gap-2 h-40">
+              <div class="bg-Neutral700 rounded-xl"></div>
+              <div class="bg-Neutral700 rounded-xl"></div>
+              <div class="bg-Neutral700 rounded-xl"></div>
+              <div class="bg-Neutral700 rounded-xl"></div>
+              <div class="bg-Neutral700 rounded-xl"></div>
+              <div class="bg-Neutral700 rounded-xl"></div>
+              <div class="bg-Neutral700 rounded-xl"></div>
             </div>
           </div>
         </div>
-      </aside>
-      <!-- daily forecast -->
-      <div class="daily grid-in-daily h-full">
-        <h1 class="font-DMSans text-Neutral0 font-bold mb-2">Daily Forecast</h1>
-        <section class="daily-forecast grid md:grid-cols-7 grid-cols-3 justify-between gap-2">
-          <!-- individual day forecast card -->
+      </div>
+
+      <!-- ========================================================= -->
+      <!-- VIEW 3: SUCCESS STATE (Your existing dashboard)           -->
+      <!-- ========================================================= -->
+      <div
+        id="weather-view"
+        class="dashboard grid lg:grid-cols-[repeat(3,1fr)] lg:grid-areas-large auto-rows-auto gap-8 items-stretch content-stretch w-full h-full grid-cols-1 grid-areas-small"
+      >
+        <!-- right hand section - searhbar, weather-info and daily forecast -->
+        <main
+          class="flex flex-col justify-items-stretch h-full grid-in-current"
+        >
+          <!-- weather card -->
+          <section class="current flex flex-col gap-5 justify-center h-full">
+            <div
+              class="current-weather flex md:flex-row flex-col gap-6 md:justify-between md:items-center justify-center bg-[url('/assets/images/bg-today-large.svg')] bg-cover bg-no-repeat bg-center text-Neutral0 px-2 py-10 md:py-20 md:px-5 rounded-xl shadow-xl"
+            >
+              <div
+                class="flex md:items-stretch flex-col items-center font-DMSans"
+              >
+                <div class="city-name font-bold text-3xl">- -</div>
+                <div class="date text-Neutral200 font-bold">
+                  <span class="current-day">Tuesday</span>,
+                  <span class="current-month">Aug</span>
+                  <span class="current-date">5</span>,
+                  <span class="current-year">2025</span>
+                </div>
+              </div>
+              <div
+                class="degree flex items-center justify-center justify-items-center relative"
+              >
+                <img
+                  class="current-icon max-w-20 mr-10 aspect-square"
+                  src="/assets/images/icon-sunny.webp"
+                  alt=""
+                />
+                <span class="font-DMSansItalic font-bold text-7xl"
+                  ><span class="current-temp">20</span><sup>o</sup></span
+                >
+              </div>
+            </div>
+            <!-- weather info -->
+            <div
+              class="current-info flex-grow grid md:grid-cols-4 grid-cols-2 gap-2"
+            >
+              <div
+                class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600"
+              >
+                <div class="text-sm text-Neutral200 font-[700] mb-2">
+                  Feels like
+                </div>
+                <div class="text-2xl font-DMSans">
+                  <span class="current-feel">-</span><sup>o</sup>
+                </div>
+              </div>
+              <div
+                class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600"
+              >
+                <div class="text-sm text-Neutral200 font-[700] mb-2">
+                  Humidity
+                </div>
+                <div class="current-humidity text-2xl font-DMSans">-</div>
+              </div>
+              <div
+                class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600"
+              >
+                <div class="text-sm text-Neutral200 font-[700] mb-2">Wind</div>
+                <div class="current-wind text-2xl font-DMSans">-</div>
+              </div>
+              <div
+                class="bg-Neutral800 font-DMSans text-Neutral0 py-5 pl-5 rounded-xl flex-1 border border-Neutral600"
+              >
+                <div class="text-sm text-Neutral200 font-[700] mb-2">
+                  Precipitation
+                </div>
+                <div class="current-precipitation text-2xl font-DMSans">-</div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <!-- left hand section - Button+ Hourly forecast -->
+        <aside class="flex flex-col grid-in-hourly">
           <div
-            class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center justify-between rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-2 py-3">
-            <h1 class="daily-day">
-              Tue
-            </h1>
-            <img class="daily-icon w-12" src="" alt="">
-            <div class="temp flex justify-between self-stretch font-DMSans">
-              <span class="daily-temp">21<sup>o</sup></span>
-              <span class="daily-app-temp">19<sup>o</sup></span>
+            class="hourly flex flex-col gap-4 bg-Neutral800 text-Neutral0 font-DMSans rounded-xl px-4 py-5"
+          >
+            <div class="flex justify-between items-center gap-3">
+              <h1 class="font-DMSans font-bold">Hourly Forecast</h1>
+              <div
+                tabindex="0"
+                class="relative flex text-Neutral0 bg-Neutral600 border border-Neutral700 justify-evenly items-center rounded-xl p-2 hover:cursor-pointer focus:border-1 focus:border-Neutral0"
+              >
+                <span class="day-select ml-3">Monday</span>
+                <img
+                  class="w-4 ml-3"
+                  src="/assets/images/icon-dropdown.svg"
+                  alt=""
+                />
+
+                <div
+                  class="days-dropdown absolute invisible flex flex-col gap-4 justify-between bg-Neutral700 text-Neutral0 font-DMSans w-[200%] z-50 top-14 right-0 rounded-xl p-2"
+                >
+                  <div
+                    id="0"
+                    class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-md"
+                  >
+                    Monday
+                  </div>
+                  <div
+                    id="1"
+                    class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-md"
+                  >
+                    Tuesday
+                  </div>
+                  <div
+                    id="2"
+                    class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-md"
+                  >
+                    Wednesday
+                  </div>
+                  <div
+                    id="3"
+                    class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-md"
+                  >
+                    Thursday
+                  </div>
+                  <div
+                    id="4"
+                    class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-md"
+                  >
+                    Friday
+                  </div>
+                  <div
+                    id="5"
+                    class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-md"
+                  >
+                    Saturday
+                  </div>
+                  <div
+                    id="6"
+                    class="days px-2 py-2 hover:bg-Neutral600 hover:rounded-md"
+                  >
+                    Sunday
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="hourly-forecast flex flex-col justify-between gap-[9px] h-[490px] overflow-y-scroll"
+            >
+              <div
+                class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2"
+              >
+                <div class="flex items-center justify-center">
+                  <img
+                    class="hourly-icon w-8"
+                    src="/assets/images/icon-sunny.webp"
+                    alt=""
+                  />
+                  <h1 id="hour">3 PM</h1>
+                </div>
+                <h2 class="text-sm">
+                  <span class="hour-temp">20</span><sup>o</sup>
+                </h2>
+              </div>
+              <!-- ... (Other hourly items remain same) ... -->
+              <!-- For brevity, I am assuming the other static hourly divs are here as per your file -->
+              <!-- Copy your other 23 hourly divs here if needed, or JS will overwrite them anyway -->
+              <div
+                class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2"
+              >
+                <div class="flex items-center justify-center">
+                  <img
+                    class="hourly-icon w-8"
+                    src="/assets/images/icon-sunny.webp"
+                    alt=""
+                  />
+                  <h1 id="hour">4 PM</h1>
+                </div>
+                <h2 class="text-sm">
+                  <span class="hour-temp">20</span><sup>o</sup>
+                </h2>
+              </div>
+              <!-- ... -->
             </div>
           </div>
-          <div
-            class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3">
-            <h1 class="daily-day">
-              Tue
-            </h1>
-            <img class="daily-icon w-12" src="" alt="">
-            <div class="temp flex justify-between self-stretch font-DMSans">
-              <span class="daily-temp">21<sup>o</sup></span>
-              <span class="daily-app-temp">19<sup>o</sup></span>
+        </aside>
+
+        <!-- daily forecast -->
+        <div class="daily grid-in-daily h-full">
+          <h1 class="font-DMSans text-Neutral0 font-bold mb-2">
+            Daily Forecast
+          </h1>
+          <section
+            class="daily-forecast grid md:grid-cols-7 grid-cols-3 justify-between gap-2"
+          >
+            <!-- individual day forecast card -->
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4 items-center justify-between rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-2 py-3"
+            >
+              <h1 class="daily-day">Tue</h1>
+              <img class="daily-icon w-12" src="" alt="" />
+              <div class="temp flex justify-between self-stretch font-DMSans">
+                <span class="daily-temp">21<sup>o</sup></span>
+                <span class="daily-app-temp">19<sup>o</sup></span>
+              </div>
             </div>
-          </div>
-          <div
-            class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3">
-            <h1 class="daily-day">
-              Tue
-            </h1>
-            <img class="daily-icon w-12" src="" alt="">
-            <div class="temp flex justify-between self-stretch font-DMSans">
-              <span class="daily-temp">21<sup>o</sup></span>
-              <span class="daily-app-temp">19<sup>o</sup></span>
+            <!-- Repeat for other days -->
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4 items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3"
+            >
+              <h1 class="daily-day">Tue</h1>
+              <img class="daily-icon w-12" src="" alt="" />
+              <div class="temp flex justify-between self-stretch font-DMSans">
+                <span class="daily-temp">21<sup>o</sup></span>
+                <span class="daily-app-temp">19<sup>o</sup></span>
+              </div>
             </div>
-          </div>
-          <div
-            class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3">
-            <h1 class="daily-day">
-              Tue
-            </h1>
-            <img class="daily-icon w-12" src="" alt="">
-            <div class="temp flex justify-between self-stretch font-DMSans">
-              <span class="daily-temp">21<sup>o</sup></span>
-              <span class="daily-app-temp">19<sup>o</sup></span>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4 items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3"
+            >
+              <h1 class="daily-day">Tue</h1>
+              <img class="daily-icon w-12" src="" alt="" />
+              <div class="temp flex justify-between self-stretch font-DMSans">
+                <span class="daily-temp">21<sup>o</sup></span>
+                <span class="daily-app-temp">19<sup>o</sup></span>
+              </div>
             </div>
-          </div>
-          <div
-            class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3">
-            <h1 class="daily-day">
-              Tue
-            </h1>
-            <img class="daily-icon w-12" src="" alt="">
-            <div class="temp flex justify-between self-stretch font-DMSans">
-              <span class="daily-temp">21<sup>o</sup></span>
-              <span class="daily-app-temp">19<sup>o</sup></span>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4 items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3"
+            >
+              <h1 class="daily-day">Tue</h1>
+              <img class="daily-icon w-12" src="" alt="" />
+              <div class="temp flex justify-between self-stretch font-DMSans">
+                <span class="daily-temp">21<sup>o</sup></span>
+                <span class="daily-app-temp">19<sup>o</sup></span>
+              </div>
             </div>
-          </div>
-          <div
-            class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3">
-            <h1 class="daily-day">
-              Tue
-            </h1>
-            <img class="daily-icon w-12" src="" alt="">
-            <div class="temp flex justify-between self-stretch font-DMSans">
-              <span class="daily-temp">21<sup>o</sup></span>
-              <span class="daily-app-temp">19<sup>o</sup></span>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4 items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3"
+            >
+              <h1 class="daily-day">Tue</h1>
+              <img class="daily-icon w-12" src="" alt="" />
+              <div class="temp flex justify-between self-stretch font-DMSans">
+                <span class="daily-temp">21<sup>o</sup></span>
+                <span class="daily-app-temp">19<sup>o</sup></span>
+              </div>
             </div>
-          </div>
-          <div
-            class="day-forecast bg-Neutral800 flex flex-col gap-4  items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3">
-            <h1 class="daily-day">
-              Tue
-            </h1>
-            <img class="daily-icon w-12" src="" alt="">
-            <div class="temp flex justify-between self-stretch font-DMSans">
-              <span class="daily-temp">21<sup>o</sup></span>
-              <span class="daily-app-temp">19<sup>o</sup></span>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4 items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3"
+            >
+              <h1 class="daily-day">Tue</h1>
+              <img class="daily-icon w-12" src="" alt="" />
+              <div class="temp flex justify-between self-stretch font-DMSans">
+                <span class="daily-temp">21<sup>o</sup></span>
+                <span class="daily-app-temp">19<sup>o</sup></span>
+              </div>
             </div>
-          </div>
-      
-        </section>
+            <div
+              class="day-forecast bg-Neutral800 flex flex-col gap-4 items-center rounded-xl border border-Neutral600 text-Neutral0 font-DMSans px-1 py-3"
+            >
+              <h1 class="daily-day">Tue</h1>
+              <img class="daily-icon w-12" src="" alt="" />
+              <div class="temp flex justify-between self-stretch font-DMSans">
+                <span class="daily-temp">21<sup>o</sup></span>
+                <span class="daily-app-temp">19<sup>o</sup></span>
+              </div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
-  </div>
+  </body>
 
-</body>
-
-<script type="module" src="./scripts.js"></script>
-
+  <script type="module" src="./scripts.js"></script>
 </html>

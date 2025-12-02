@@ -29,16 +29,20 @@ const UI = {
     "Dec",
   ],
 
+  today: new Date(Date.now()),
+
+  dayId: new Date(Date.now()).getDay(),
+
   units: document.querySelector(".units"),
 
   unitsDrop: document.querySelector(".units-dropdown"),
 
   search: document.querySelector(".search-field"),
 
-  daySelect: document.querySelector(".day-select"),
-
   cityName: document.querySelector(".city-name"),
 
+  button: document.querySelector(".search-button"),
+  
   // Find dropdowns that live inside the control wrappers
 
   cityDrop: document.querySelector(".city-dropdown") || null,
@@ -72,8 +76,13 @@ const UI = {
   dayName: document.querySelectorAll(".daily-day"),
   dayIcon: document.querySelectorAll(".daily-icon"),
 
-  // hourly weather data
-  hourTemp: document.querySelectorAll("hour-temp"),
+  // hourly container (Selecting the parent instead of individual items)
+  hourlyForecastContainer: document.querySelector(".hourly-forecast"),
+  
+  // View Containers
+  weatherView: document.querySelector("#weather-view"),
+  loadingView: document.querySelector("#loading-view"),
+  errorView: document.querySelector("#error-view"),
 };
 
 /**
@@ -151,15 +160,16 @@ const AppState = {
 
     Controller.dropControl(UI.units, UI.unitsDrop);
 
-    Controller.dropControl(UI.daySelect, UI.daysDrop);
+    Controller.dropControl(UI.activeDay, UI.daysDrop);
 
     Controller.daysControl();
 
     Controller.searchControl();
 
     Controller.suggestionsControl();
-
-    this.loadStorage();
+    
+    // Initialize Search Button Logic
+    Controller.searchButtonControl();
 
     WeatherService.initWeatherOnLoad();
   },
@@ -169,25 +179,23 @@ const AppState = {
   toggleUnits() {
     // change state of the metric units
     this.isMetric = !this.isMetric;
-
     // add to storage
-    this.saveStorage();
-
+    this.saveUnit();
     // update the Metric unit UI
     RenderUI.updateMetricUI();
   },
 
+  saveUnit() {
+    localStorage.setItem("isMetric", this.isMetric);
+  },
+
   setDay(dayId) {
     // add to storage
-    this.saveStorage();
+    // this.saveStorage("dayId", dayId);
 
     // update the Metric unit UI
     RenderUI.updateHourlyUI(dayId);
   },
-
-  loadStorage() {},
-
-  saveStorage() {},
 };
 
 /** UTILS - HELPER FUNCTIONS */
@@ -211,9 +219,17 @@ const Utils = {
 
   getWeatherIcon(code) {
     const iconName = WeatherIconMap[code];
-    console.log(iconName);
-
     return iconName ? iconName : "sunny";
+  },
+
+  getBool(key, defaultValue = true) {
+    const raw = localStorage.getItem(key);
+    if (raw === null) return defaultValue;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return defaultValue;
+    }
   },
 };
 
@@ -235,8 +251,6 @@ const Controller = {
 
     control.addEventListener("click", (e) => {
       if (dropdown.contains(e.target)) return;
-      console.log(e.target);
-
       dropdown.classList.toggle("invisible");
     });
 
@@ -257,19 +271,39 @@ const Controller = {
       if (UI.search && UI.cityDrop && !UI.search.contains(e.target))
         UI.cityDrop.classList.add("invisible");
 
-      if (UI.daySelect && UI.daysDrop && !UI.daySelect.contains(e.target))
+      if (UI.activeDay && UI.daysDrop && !UI.activeDay.contains(e.target))
         UI.daysDrop.classList.add("invisible");
     });
   },
-
+  // Inside Controller object
   daysControl() {
-    UI.days.forEach((day, i) => {
+    UI.days.forEach((day, index) => {
+      // Added index here
       day.addEventListener("click", (e) => {
         e.stopPropagation();
 
-        AppState.setDay(i);
+        // 1. Update active day text
+        UI.activeDay.textContent = e.target.textContent;
+        UI.activeDay.dataset.selectedId = index;
 
-        console.log(i);
+
+        // 2. Hide Dropdown
+        UI.daysDrop.classList.add("invisible");
+
+        // 3. GET DATA
+        const { hours, hourlyCode, hourlyTempData, hourlyAppTempData } =
+          JSON.parse(localStorage.getItem("hourly") || "{}");
+
+        const fullData = {
+          hours,
+          hourlyCode,
+          hourlyTempData,
+          hourlyAppTempData,
+        };
+
+        // 4. TRIGGER THE RENDER UPDATE FOR THIS SPECIFIC DAY
+        // We call the helper function we created in Step 1
+        RenderUI.updateHourlyCards(index, fullData);
       });
     });
   },
@@ -293,9 +327,6 @@ const Controller = {
       const options = e.target.closest(".city-options");
       if (!options) return;
       const { lat, lon, city, country } = options.dataset;
-      console.log(options.dataset);
-
-      console.log(lat, lon, city, country);
 
       UI.search.value = "";
       UI.cityDrop.classList.add("invisible");
@@ -310,23 +341,74 @@ const Controller = {
       );
     });
   },
+
+  searchButtonControl() {
+    if (!UI.button) return;
+
+    UI.button.addEventListener("click", (e) => {
+      e.preventDefault(); 
+
+      // 1. GET DATA NOW (Inside the click, not outside)
+      const topCity = Utils.getBool("suggestions", null);
+
+      if (!topCity) {
+        console.warn("No city found to search");
+        return;
+      }
+
+      // 2. Extract Data
+      const lat = topCity.latitude;
+      const lon = topCity.longitude;
+      const city = topCity.name;
+      
+      let country = topCity.country;
+      if (country === "Israel" || !country) {
+        country = "Palestine ˗ˏˋ 🍉 ˎˊ˗";
+      }
+
+      const coords = { lat, lon };
+      const location = { city, country };
+
+      UI.search.value = "";
+      UI.cityDrop.innerHTML = "";
+      UI.cityDrop.classList.add("invisible");
+
+      WeatherService.fetchWeatherData(coords, location);
+    });
+  },
 };
 
 /** LOGIC/RENDER */
 
 const RenderUI = {
+  
+  // NEW: The View Switcher
+  switchView(state) {
+    // 1. Hide everything first
+    if(UI.weatherView) UI.weatherView.classList.add("hidden");
+    if(UI.loadingView) UI.loadingView.classList.add("hidden");
+    if(UI.errorView) UI.errorView.classList.add("hidden");
+
+    // 2. Show the specific state
+    if (state === "loading" && UI.loadingView) {
+      UI.loadingView.classList.remove("hidden");
+    } else if (state === "error" && UI.errorView) {
+      UI.errorView.classList.remove("hidden");
+    } else if (state === "success" && UI.weatherView) {
+      UI.weatherView.classList.remove("hidden");
+    }
+  },
+
   updateDashboard(location, weather) {
-    console.log("dashboard updated");
 
     // update the City and country nmae
     UI.cityName.textContent = `${location.city}, ${location.country}`;
 
     // update the Date
-    const today = new Date(Date.now());
-    const day = UI.allDays[today.getDay()];
-    const month = UI.allMonths[today.getMonth()];
-    const date = today.getDate();
-    const year = today.getFullYear();
+    const day = UI.allDays[UI.dayId];
+    const month = UI.allMonths[UI.today.getMonth()];
+    const date = UI.today.getDate();
+    const year = UI.today.getFullYear();
 
     UI.currentDate.textContent = date;
     UI.currentDay.textContent = day;
@@ -335,7 +417,6 @@ const RenderUI = {
 
     const { temp, feels_like, humidity, wind, precipitation, weathercode } =
       weather;
-    console.log(weather);
 
     UI.currentTemp.textContent = temp;
     UI.currentFeel.textContent = feels_like;
@@ -348,24 +429,25 @@ const RenderUI = {
     const iconPath = `/assets/images/icon-${iconName}.webp`;
     UI.weatherIcon.src = iconPath;
     UI.weatherIcon.alt = iconName;
+
+    // RenderUI.updateHourlyUI(UI.dayId, hourlyWeather)
   },
 
-  async updateDailyUI(data) {
+  updateDailyUI(data) {
     const { days, dailyCode, dailyTempData, dailyAppTempData } = data;
-    console.log(days);
 
     // creat a new array to get shortened days
     const shortDays = UI.allDays.map((day) => {
-      return day.slice(0,3)
+      return day.slice(0, 3);
     });
 
     const dayNames = days.map((dayString) => {
-      // create a code based on the curren day
+      // create a code based on the current day
       const newDay = new Date(dayString);
       const dayIndex = newDay.getDay();
-      return shortDays[dayIndex]; 
+      return shortDays[dayIndex];
     });
-  
+
     // loop over each value of the daily temp array data
     for (let index = 0; index < UI.dailyTemp.length; index++) {
       // assign each of these h2 text content as the value of the data
@@ -375,31 +457,114 @@ const RenderUI = {
 
       const iconName = Utils.getWeatherIcon(dailyCode[index]);
       const iconPath = `/assets/images/icon-${iconName}.webp`;
-
       UI.dayIcon.forEach((icon) => {
         icon.src = iconPath;
         icon.alt = iconName;
       });
-
-      // Populate the UI day name elements using the computed abbreviations
-      // UI.dayName[index].textContent = days[index]
     }
   },
+
+  processDays(daysData) {
+    // return just 7 of the 168 codes in the array
+    let days = [];
+    for (let index = 0; index < daysData.length; index += 24) {
+      days.push(daysData[index]);
+    }
+
+    // return all the 7 names as actual days
+    return days.map((dayString) => {
+      const newDay = new Date(dayString);
+      const dayIndex = newDay.getDay();
+      return UI.allDays[dayIndex];
+    });
+  },
+
+  processHours(hoursData) {
+    // filter out the hours
+    let allHours = [];
+    for (let index = 0; index < 24; index++) {
+      allHours.push(hoursData[index]);
+    }
+
+    const hourNames = allHours.map((hourString) => {
+      return new Date(hourString).getHours();
+    });
+
+    // process the array to write hours in standard format (0- 12 AM, 13 - 1 PM)
+    return hourNames.map((hour) => {
+      if (hour === 0) return "12 AM";
+      if (hour < 12) return `${hour} AM`;
+      if (hour === 12) return "12 PM";
+      return `${hour - 12} PM`;
+    });
+  },
+
+  updateHourlyUI(data) {
+    const { hours } = data;
+
+    // process the hours array and bring out just the 7 days
+    const dayNames = this.processDays(hours);
+
+    // generate the days dropdown
+    for (let dayId = 0; dayId < UI.allDays.length; dayId++) {
+      UI.days[dayId].textContent = dayNames[dayId];
+
+      // Select the first day by default
+      UI.activeDay.textContent = dayNames[0];
+      UI.activeDay.dataset.selectedId = 0;
+
+      // "Paint the cards for the first day immediately"
+      this.updateHourlyCards(0, data);
+    }
+  },
+
+  updateHourlyCards(index, data) {
+    // Get the data for the specific day (24 hours)
+    const hourlyNames = this.processHours(data.hours);
+    const startIndex = index * 24;
+    const endIndex = startIndex + 24;
+    const weatherCodes = data.hourlyCode.slice(startIndex, endIndex);
+    const hourlyTemp = data.hourlyTempData.slice(startIndex, endIndex);
+
+    // Generate HTML String dynamically
+    const cardsHTML = hourlyNames.map((time, i) => {
+      const iconName = Utils.getWeatherIcon(weatherCodes[i]);
+      const temp = hourlyTemp[i];
+      
+      return `
+        <div class="hour-forecast_one bg-Neutral600 flex justify-between items-center rounded-xl border border-Neutral700 text-Neutral0 font-DMSans p-2">
+          <div class="flex items-center justify-center">
+            <img class="hourly-icon w-8" src="/assets/images/icon-${iconName}.webp" alt="${iconName}">
+            <h1 class="ml-2 font-bold">${time}</h1>
+          </div>
+          <h2 class="text-sm"><span class="hour-temp">${temp}</span><sup>o</sup></h2>
+        </div>
+      `;
+    }).join("");
+
+    // Inject into the DOM
+    if(UI.hourlyForecastContainer) {
+        UI.hourlyForecastContainer.innerHTML = cardsHTML;
+    }
+  },
+
   // update metric info UI
   async updateMetricUI() {
+    let metricState = Utils.getBool("isMetric");
+
     // change text content works
-    UI.unitSwitch.textContent = AppState.isMetric
+    UI.unitSwitch.textContent = metricState
       ? "Switch to Imperial"
       : "Switch to Metric";
 
-    // show/hide unit elements based on current state using Tailwind 'invisible' utility
+    // show/hide unit elements based on current metricState using Tailwind 'invisible' utility
 
     UI.unitsElement.forEach((element) => {
       // determine if the element should be active
 
       const isActive =
-        element.dataset.unit === (AppState.isMetric ? "metric" : "imperial");
-      console.log(isActive);
+        element.dataset.unit === (metricState ? "metric" : "imperial");
+
 
       // toggle the bg-color based on active state
 
@@ -418,42 +583,6 @@ const RenderUI = {
     const coords = { lat, lon };
     const location = { city, country };
     WeatherService.fetchWeatherData(coords, location);
-  },
-
-  updateHourlyUI(dayId, data) {
-    let day = UI.days[dayId];
-    
-    // display the name of the day based on the day clicked
-    UI.activeDay.innerText = day.textContent;
-    console.log(day);
-    // hide the dropdown
-    UI.daysDrop.classList.add("invisible");
-
-    const { days, dailyCode, dailyTempData, dailyAppTempData } = data;
-    console.log(dailyCode);
-
-    // loop over each value of the daily temp array data
-    for (let index = 0; index < UI.dailyTemp.length; index++) {
-      // assign each of these h2 text content as the value of the data
-      UI.dailyTemp[index].textContent = dailyTempData[index];
-      UI.dailyAppTemp[index].textContent = dailyAppTempData[index];
-
-      const iconName = Utils.getWeatherIcon(dailyCode[index]);
-      console.log(iconName);
-
-      const iconPath = `/assets/images/icon-${iconName}.webp`;
-
-      UI.dayIcon.forEach((icon) => {
-        icon.src = iconPath;
-        icon.alt = iconName;
-      });
-    }
-    for (let i = 0; i < UI.allDays.length; i++) {
-      UI.allDays.forEach((day) => {
-        const newDay = day.slice(0, 3);
-        UI.dayName[i].textContent = newDay;
-      });
-    }
   },
 };
 
@@ -485,21 +614,17 @@ const WeatherService = {
 
     // Call your main fetch function (ensure this function exists!)
     await this.fetchWeatherData(coords, location);
+    RenderUI.updateMetricUI();
   },
 
-  // Takes in a query (cityName or lat and lon), fecthes all relavant weatherData using OpenMeteo and calls update Dashboard to display the data.
   async fetchWeatherData(query, location) {
     let lat, lon, city, country, tempUnit, windUnit, precipUnit;
     lat = query.lat;
     lon = query.lon;
     city = location.city;
     country = location.country;
-    console.log(lat, lon);
 
     localStorage.setItem("lat", lat);
-    const newLat = localStorage.getItem("lat");
-    console.log(newLat);
-
     localStorage.setItem("lon", lon);
     localStorage.setItem("city", city);
     localStorage.setItem("country", country);
@@ -508,61 +633,91 @@ const WeatherService = {
     windUnit = AppState.isMetric ? "kmh" : "mph";
     precipUnit = AppState.isMetric ? "mm" : "inch";
 
-    const weatherData = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
-        `&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,wind_speed_10m,weathercode` +
-        `&hourly=temperature_2m,apparent_temperature,weathercode` +
-        `&daily=weather_code,temperature_2m_max,apparent_temperature_max` +
-        `&temperature_unit=${tempUnit}` +
-        `&wind_speed_unit=${windUnit}` +
-        `&precipitation_unit=${precipUnit}` +
-        `&timezone=auto`,
-    );
-    const data = await weatherData.json();
-    console.log(data);
+    // PHASE 1: START (Immediate Feedback)
+    RenderUI.switchView("loading"); 
 
-    const {
-      temperature_2m,
-      apparent_temperature,
-      precipitation,
-      wind_speed_10m,
-      relative_humidity_2m,
-      weathercode,
-    } = data.current;
+    try {
+        const response = await fetch(
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+            `&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,wind_speed_10m,weathercode` +
+            `&hourly=temperature_2m,apparent_temperature,weathercode` +
+            `&daily=weather_code,temperature_2m_max,apparent_temperature_max` +
+            `&temperature_unit=${tempUnit}` +
+            `&wind_speed_unit=${windUnit}` +
+            `&precipitation_unit=${precipUnit}` +
+            `&timezone=auto`,
+        );
 
-    // update the Dashboard with the location and weather params
-    const currentWeather = {
-      temp: temperature_2m,
-      feels_like: apparent_temperature,
-      humidity: relative_humidity_2m,
-      wind: wind_speed_10m,
-      precipitation: precipitation,
-      weathercode: weathercode,
-      tempUnit: tempUnit,
-      precipUnit: precipUnit,
-      windUnit: windUnit,
-    };
-    // location ain't defined
-    RenderUI.updateDashboard({ city, country }, currentWeather);
+        // PHASE 2: ERROR CHECKING
+        if (!response.ok) {
+            throw new Error("API Response was not OK");
+        }
 
-    // process daily data
-    const daily = data.daily;
-    console.log(daily);
-    const days = daily.time;
-    const dailyCode = daily.weather_code;
-    const dailyTempData = daily.temperature_2m_max;
-    const dailyAppTempData = daily.apparent_temperature_max;
+        const data = await response.json();
 
-    const dailyWeather = {
-      days: days,
-      dailyCode: dailyCode,
-      dailyTempData: dailyTempData,
-      dailyAppTempData: dailyAppTempData,
-    };
+        if (!data.current) {
+            throw new Error("Location found, but no weather data available.");
+        }
 
-    RenderUI.updateDailyUI(dailyWeather);
+        // PHASE 3: SUCCESS (Update UI)
+        
+        // Process Current Data
+        const {
+          temperature_2m,
+          apparent_temperature,
+          precipitation,
+          wind_speed_10m,
+          relative_humidity_2m,
+          weathercode,
+        } = data.current;
 
-    const hourlyData = data.hourly;
+        const currentWeather = {
+          temp: temperature_2m,
+          feels_like: apparent_temperature,
+          humidity: relative_humidity_2m,
+          wind: wind_speed_10m,
+          precipitation: precipitation,
+          weathercode: weathercode,
+          tempUnit: tempUnit,
+          precipUnit: precipUnit,
+          windUnit: windUnit,
+        };
+        RenderUI.updateDashboard({ city, country }, currentWeather);
+
+        // Process Daily Data
+        const daily = data.daily;
+        const dailyWeather = {
+          days: daily.time,
+          dailyCode: daily.weather_code,
+          dailyTempData: daily.temperature_2m_max,
+          dailyAppTempData: daily.apparent_temperature_max,
+        };
+        RenderUI.updateDailyUI(dailyWeather);
+
+        // Process Hourly Data
+        const hourly = data.hourly;
+        const hourlyWeather = {
+          hours: hourly.time,
+          hourlyCode: hourly.weathercode,
+          hourlyTempData: hourly.temperature_2m,
+          hourlyAppTempData: hourly.apparent_temperature,
+        };
+
+        localStorage.setItem(
+          "hourly",
+          JSON.stringify(hourlyWeather),
+        );
+
+        RenderUI.updateHourlyUI(hourlyWeather);
+
+        // Reveal the dashboard
+        RenderUI.switchView("success");
+
+    } catch (error) {
+        // PHASE 4: FAILURE
+        console.error("Weather App Error:", error);
+        RenderUI.switchView("error");
+    }
   },
 
   // Takes in search input, fetches city suggestions from OpenMeteo Geo-coding, and display/closes the suggestions dynamically with the returned city data as stored as IDs in the divs.
@@ -583,7 +738,8 @@ const WeatherService = {
 
       // 2. Validate the data structure
       const suggestions = cities.results || []; // Fallback to empty array if undefined
-      console.log("Fresh API Data:", suggestions); // ✅ Check this log!
+      localStorage.setItem("suggestions", JSON.stringify(suggestions[0]));
+      Controller.searchButtonControl();
 
       const shouldHide = !value || suggestions.length === 0;
       UI.cityDrop.classList.toggle("invisible", shouldHide);
