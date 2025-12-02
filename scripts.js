@@ -705,7 +705,7 @@ const WeatherService = {
 
         localStorage.setItem(
           "hourly",
-          JSON.stringify(hourlyWeather),read
+          JSON.stringify(hourlyWeather)
         );
 
         RenderUI.updateHourlyUI(hourlyWeather);
